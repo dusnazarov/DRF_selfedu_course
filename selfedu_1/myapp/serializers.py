@@ -1,62 +1,38 @@
+from rest_framework import serializers
+from .models import Women
 
 
-# """  
-
-# """
-
-# from rest_framework import serializers
-
-# class CommentSerializer(serializers.Serializer):
-#     email=serializers.EmailField()
-#     content=serializers.CharField()
-
-#     def validate_content(self,value):
-#         #If content is 'baz' returns 'foo'
-#         if value and value == "baz":
-#             return "foo"
-#         return value
-
-# """       
-# Let's try with wrong values (for email):
-
-# >>> serializer = CommentSerializer(data={'email': 'foobar', 'content': 'baz'})
-
-# >>> serializer.initial_data
-# {'content': 'baz', 'email': 'foobar'}
-
-# >>> serializer.is_valid()
-# False
-
-# >>> serializer.validated_data
-# {}
-
-# >>> serializer.errors
-# {'email': [u'Enter a valid email address.']}
+#  2)  //////////////////////////////////////
+class WomenSerializer(serializers.Serializer):
+    title = serializers.CharField(max_length=255)
+    content = serializers.CharField()
+    time_create = serializers.DateTimeField(read_only=True)
+    time_update = serializers.DateTimeField(read_only=True)
+    is_published = serializers.BooleanField(default=True)
+    cat_id = serializers.IntegerField()
 
 
-# Now Let's try with correct values
-
-# >>> serializer2 = CommentSerializer(data={'email': 'foobar@email.it', 
-# 'content': 'baz'})  
-# >>> serializer2.is_valid()
-# True
-
-# >>> serializer2.initial_data
-# {'content': 'baz', 'email': 'foobar@email.it'}
-# >>> serializer2.errors
-# {}
-
-# >>> serializer2.data
-# {'content': u'foo', 'email': u'foobar@email.it'}
-
-# >>> serializer2.validated_data
-# OrderedDict([(u'email', u'foobar@email.it'), (u'content', u'foo')])
-
-# So:
-
-# data : is a dict and you can see it only after is_valid() (you can see only not validated values)
-# validated_data is an OrderedDict and you can see it only after is_valid() and is_valid() == True
+    def create(self, validated_data):
+        return Women.objects.create(**validated_data)
+    
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get('title', instance.title)
+        instance.content = validated_data.get('content', instance.content)
+        instance.time_update = validated_data.get('time_update', instance.time_update)
+        instance.is_published = validated_data.get('is_published', instance.is_published)
+        instance.cat_id = validated_data.get('cat_id', instance.cat_id)
+        instance.save()
+        return instance 
 
 
-# """
+# /////////////////  3), 4), 5), 6), 7), 8), 9), 10) / ////////////////
+from rest_framework import serializers
+from .models import Women
 
+
+class WomenModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Women
+        fields = ('pk','title','content','cat')
+        
+    
