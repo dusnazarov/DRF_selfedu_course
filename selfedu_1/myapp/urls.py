@@ -7,7 +7,8 @@ from rest_framework import routers
 # 1) ///////////////////////////////////////////////
 urlpatterns=[
     path('list/',WomenAPIView.as_view()),
-    path('create/',WomenAPIView.as_view()),
+    path('<int:pk>/detail/', WomenAPIView.as_view()),
+    path('create/', WomenAPIView.as_view()),
     path('<int:pk>/update/', WomenAPIView.as_view()),
     path('<int:pk>/delete/', WomenAPIView.as_view()),
 
