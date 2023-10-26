@@ -8,21 +8,21 @@ from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
 
 
 # 1) /////////////////////////////////
-class WomenAPIListCreate(generics.ListCreateAPIView):
-    queryset = Women.objects.all()
-    serializer_class = WomenSerializer
-    permission_classes=(IsAuthenticatedOrReadOnly, )
+# class WomenAPIListCreate(generics.ListCreateAPIView):
+#     queryset = Women.objects.all()
+#     serializer_class = WomenSerializer
+#     permission_classes=(IsAuthenticatedOrReadOnly, )
 
-class WomenAPIRetirieveUpdate(generics.RetrieveUpdateAPIView):
-    queryset = Women.objects.all()
-    serializer_class = WomenSerializer
-    permission_classes = (IsAdminUser, )
+# class WomenAPIRetirieveUpdate(generics.RetrieveUpdateAPIView):
+#     queryset = Women.objects.all()
+#     serializer_class = WomenSerializer
+#     permission_classes = (IsAdminUser, )
 
 
-class WomenAPIRetrieveDestroy(generics.RetrieveDestroyAPIView):
-    queryset = Women.objects.all()
-    serializer_class = WomenSerializer
-    permission_classes = (IsAdminUser, )    
+# class WomenAPIRetrieveDestroy(generics.RetrieveDestroyAPIView):
+#     queryset = Women.objects.all()
+#     serializer_class = WomenSerializer
+#     permission_classes = (IsAdminUser, )    
     
 
 # 2) /////////////////////////////////
